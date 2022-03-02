@@ -27,7 +27,7 @@
   "dependencies": {
     "evdev": "^0.3.0",
     "node-gyp": "^8.4.1",
-    "udev": "^1.0.0"
+    "udev": "^1.0.1"
   },
   "devDependencies": {
     "electron-rebuild": "^3.2.7"

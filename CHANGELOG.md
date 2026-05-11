@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.3](https://github.com/shbatm/MMM-KeyBindings/compare/v2.0.2...v2.0.3) (2026-05-11)
+
+
+### Chores
+
+* update devDependencies ([d2abf85](https://github.com/shbatm/MMM-KeyBindings/commit/d2abf8519342af2bbb5a470cd46abb3bab25c1ff))
+
+
+### Code Refactoring
+
+* convert KeyHandler from Class.extend to ES6 class syntax ([54bfaad](https://github.com/shbatm/MMM-KeyBindings/commit/54bfaadac672229d3d2aab0e5d71d8a6df169033))
+
+
+### Tests
+
+* **MMM-KeyBindings:** add unit tests for key handlers ([759b7f0](https://github.com/shbatm/MMM-KeyBindings/commit/759b7f04a6a47ec717d2294712deb54d124bc611))
+
 ## [2.0.2](https://github.com/shbatm/MMM-KeyBindings/compare/v2.0.1...v2.0.2) (2026-03-14)
 
 

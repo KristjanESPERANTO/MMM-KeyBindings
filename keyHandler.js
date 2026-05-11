@@ -1,4 +1,4 @@
-/* global cloneObject, Class */
+/* global cloneObject */
 
 /**
  * Swap keys and values of a plain object.
@@ -19,68 +19,70 @@ function invertMap (map) {
  *  These is a basic implementation, expand as needed.
  *
  */
-const KeyHandler = Class.extend({
-  /**
-   ** defaults ***
-   *
-   *   Default Key Binding Configuration, can be overwritten on init
-   *
-   */
-  defaults: {
-    /** * MMM-KeyBindings STANDARD MAPPING * **/
-    /* Add the "mode" you would like to respond to */
-    mode: "DEFAULT",
-    map: {
+class KeyHandler {
+  constructor () {
+    this.defaults = {
+      /**
+       ** defaults ***
+       *
+       *   Default Key Binding Configuration, can be overwritten on init
+       *
+       */
+      /** * MMM-KeyBindings STANDARD MAPPING * **/
+      /* Add the "mode" you would like to respond to */
+      mode: "DEFAULT",
+      map: {
       /*
        * Add each key you want to respond to in the form:
        *      yourKeyName: "keyName_from_MMM-KeyBindings"
        */
-      Right: "ArrowRight",
-      Left: "ArrowLeft"
+        Right: "ArrowRight",
+        Left: "ArrowLeft"
       /* ... */
-    },
+      },
 
-    /** * OPTIONAL ***/
-    /*
-     *  When using multiple instances (i.e. the screen connected
-     *  to the server & browser windows on other computers):
-     *
-     *  multiInstance: true -- the bluetooth device will only
-     *  control the local server's instance.
-     *  The browser windows are controlled by the local
-     *   keyboard (assuming enableMousetrap:true in
-     *   MMM-KeyBindings' config)
-     *
-     *  multiInstance: false -- the bluetooth device will
-     *  control all instances of this module.
-     *
-     */
-    multiInstance: true,
+      /** * OPTIONAL ***/
+      /*
+       *  When using multiple instances (i.e. the screen connected
+       *  to the server & browser windows on other computers):
+       *
+       *  multiInstance: true -- the bluetooth device will only
+       *  control the local server's instance.
+       *  The browser windows are controlled by the local
+       *   keyboard (assuming enableMousetrap:true in
+       *   MMM-KeyBindings' config)
+       *
+       *  multiInstance: false -- the bluetooth device will
+       *  control all instances of this module.
+       *
+       */
+      multiInstance: true,
 
-    /*
-     * If you would like your module to "take focus" when a
-     * particular key is pressed change the mode
-     * setting to "MYKEYWORD" and add a "takeFocus"
-     * mapped to a key. This will keep other modules
-     * from responding to key presses when you have focus.
-     *
-     * Just remember you must release focus when done!
-     * Call this.releaseFocus()
-     * when you're ready to release the focus.
-     *
-     * Additional Option:
-     * For complex setups you can also set an "external interrupt"
-     * in the MMM-KeyBindings config which can set the mode
-     * without first sending a keypress to all modules
-     *
-     * Example below takes the focus when "Enter" is pressed
-     *
-     */
-    takeFocus: "Enter",
-    /* OR AS AN OBJECT: */
-    // takeFocus: { keyName: "Enter", keyState: "KEY_LONGPRESSED" }
-    debug: false
-  },
+      /*
+       * If you would like your module to "take focus" when a
+       * particular key is pressed change the mode
+       * setting to "MYKEYWORD" and add a "takeFocus"
+       * mapped to a key. This will keep other modules
+       * from responding to key presses when you have focus.
+       *
+       * Just remember you must release focus when done!
+       * Call this.releaseFocus()
+       * when you're ready to release the focus.
+       *
+       * Additional Option:
+       * For complex setups you can also set an "external interrupt"
+       * in the MMM-KeyBindings config which can set the mode
+       * without first sending a keypress to all modules
+       *
+       * Example below takes the focus when "Enter" is pressed
+       *
+       */
+      takeFocus: "Enter",
+      /* OR AS AN OBJECT: */
+      // takeFocus: { keyName: "Enter", keyState: "KEY_LONGPRESSED" }
+      debug: false
+    };
+  }
 
   /**
    * init()
@@ -98,7 +100,7 @@ const KeyHandler = Class.extend({
     this.currentMode = "DEFAULT";
     // Build reverse lookup: MMM-KeyBindings key name → local name
     this.reverseMap = invertMap(this.config.map);
-  },
+  }
 
   /**
    * validate
@@ -167,7 +169,7 @@ const KeyHandler = Class.extend({
     }
 
     return false;
-  },
+  }
 
   /**
    * focusReceived
@@ -181,7 +183,7 @@ const KeyHandler = Class.extend({
     this.sendNotification("KEYPRESS_MODE_CHANGED", this.config.mode);
     this.currentMode = this.config.mode;
     this.onFocus();
-  },
+  }
 
   /**
    * releaseFocus
@@ -197,7 +199,7 @@ const KeyHandler = Class.extend({
     this.sendNotification("KEYPRESS_MODE_CHANGED", "DEFAULT");
     this.currentMode = "DEFAULT";
     this.onFocusReleased();
-  },
+  }
 
   /** ************** SUBCLASSABLE FUNCTIONS ****************/
   /** * Pass your functions in the KeyHandler definition ***/
@@ -222,7 +224,7 @@ const KeyHandler = Class.extend({
     } else if (kp.keyName === this.config.map.Left) {
       Log.debug("[KeyHandler] LEFT KEY WAS PRESSED!");
     }
-  },
+  }
 
   /**
    * onFocus
@@ -233,7 +235,8 @@ const KeyHandler = Class.extend({
    */
   onFocus () {
     // Override in subclass
-  },
+    Object.hasOwn(this, "name");
+  }
 
   /**
    * onFocusReleased
@@ -244,7 +247,8 @@ const KeyHandler = Class.extend({
    */
   onFocusReleased () {
     // Override in subclass
-  },
+    Object.hasOwn(this, "name");
+  }
 
   /**
    * sendNotification
@@ -252,8 +256,9 @@ const KeyHandler = Class.extend({
    */
   sendNotification () {
     // Override in subclass
+    Object.hasOwn(this, "name");
   }
-});
+}
 
 KeyHandler.definitions = {};
 
@@ -273,9 +278,11 @@ KeyHandler.create = function create (name, config) {
   const clonedDefinition = cloneObject(handlerDefinition);
 
   // Note that we clone the definition. Otherwise the objects are shared, which gives problems.
-  const KeyHandlerClass = KeyHandler.extend(clonedDefinition);
+  const handler = new KeyHandler();
+  Object.assign(handler, clonedDefinition);
+  handler.init(name, config);
 
-  return new KeyHandlerClass(name, config);
+  return handler;
 };
 
 /**

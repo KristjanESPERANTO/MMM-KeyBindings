@@ -118,7 +118,7 @@ class KeyHandler {
     Log.info(`${this.name} HAS FOCUS!`);
     this.sendNotification("KEYPRESS_MODE_CHANGED", this.config.mode);
     this.currentMode = this.config.mode;
-    this.onFocus();
+    this.onFocus?.();
   }
 
   /**
@@ -134,7 +134,7 @@ class KeyHandler {
     Log.info(`${this.name} HAS RELEASED FOCUS!`);
     this.sendNotification("KEYPRESS_MODE_CHANGED", "DEFAULT");
     this.currentMode = "DEFAULT";
-    this.onFocusReleased();
+    this.onFocusReleased?.();
   }
 
   /** ************** SUBCLASSABLE FUNCTIONS ****************/
@@ -160,39 +160,6 @@ class KeyHandler {
     } else if (kp.keyName === this.config.map.Left) {
       Log.debug("[KeyHandler] LEFT KEY WAS PRESSED!");
     }
-  }
-
-  /**
-   * onFocus
-   * Subclass this method in your KeyHandler definition to do something
-   * when focus has been received.
-   *   Modify this function to do what you need in your module
-   *      whenever focus is received.
-   */
-  onFocus () {
-    // Override in subclass
-    Object.hasOwn(this, "name");
-  }
-
-  /**
-   * onFocusReleased
-   * Subclass this method in your KeyHandler definition to do something
-   * when focus has been released.
-   *   Modify this function to do what you need in your module
-   *      whenever focus is released.
-   */
-  onFocusReleased () {
-    // Override in subclass
-    Object.hasOwn(this, "name");
-  }
-
-  /**
-   * sendNotification
-   * Subclassed to provide reference to module's send function.
-   */
-  sendNotification () {
-    // Override in subclass
-    Object.hasOwn(this, "name");
   }
 }
 

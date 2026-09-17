@@ -11,7 +11,6 @@ const LOCAL_HOSTS = [
 Module.register("MMM-KeyBindings", {
   defaults: {
     enabledKeyStates: ["KEY_PRESSED", "KEY_LONGPRESSED"],
-    // Other options are 'KEY_UP', 'KEY_DOWN', 'KEY_HOLD' but evdev.raw_mode must be true to receive
     handleKeys: [], // Additional keys for NativeKeyHandler; blank means use the configured key map.
     disableKeys: [], // Keys to ignore from the NativeKeyHandler key set.
     enableKeyboard: false,

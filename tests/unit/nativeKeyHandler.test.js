@@ -58,10 +58,6 @@ const NativeKeyHandler = {
         this.activeKeys.push(key);
       }
     }
-  },
-
-  removeKeys (keys) {
-    this.activeKeys = this.activeKeys.filter((k) => !keys.includes(k));
   }
 };
 
@@ -149,26 +145,6 @@ describe("NativeKeyHandler", () => {
       NativeKeyHandler.activeKeys = ["Home"];
       NativeKeyHandler.addKeys(["ArrowLeft"]);
       assert.deepEqual(NativeKeyHandler.activeKeys, ["Home", "ArrowLeft"]);
-    });
-  });
-
-  describe("removeKeys", () => {
-    test("removes specified keys from activeKeys", () => {
-      NativeKeyHandler.activeKeys = ["ArrowLeft", "ArrowRight", "Home"];
-      NativeKeyHandler.removeKeys(["ArrowLeft"]);
-      assert.deepEqual(NativeKeyHandler.activeKeys, ["ArrowRight", "Home"]);
-    });
-
-    test("removes multiple keys at once", () => {
-      NativeKeyHandler.activeKeys = ["ArrowLeft", "ArrowRight", "Home"];
-      NativeKeyHandler.removeKeys(["ArrowLeft", "ArrowRight"]);
-      assert.deepEqual(NativeKeyHandler.activeKeys, ["Home"]);
-    });
-
-    test("handles removing non-existent keys gracefully", () => {
-      NativeKeyHandler.activeKeys = ["ArrowLeft"];
-      NativeKeyHandler.removeKeys(["NonExistent"]);
-      assert.deepEqual(NativeKeyHandler.activeKeys, ["ArrowLeft"]);
     });
   });
 

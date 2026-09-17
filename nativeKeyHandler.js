@@ -145,13 +145,5 @@ const NativeKeyHandler = {
         this.activeKeys.push(key);
       }
     }
-  },
-
-  /**
-   * Remove keys from handling
-   * @param {Array} keys - Array of key names to remove
-   */
-  removeKeys (keys) {
-    this.activeKeys = this.activeKeys.filter((k) => !keys.includes(k));
   }
 };

@@ -12,6 +12,7 @@
     "evdev",
     "evtest",
     "FASTFORWARD",
+    "keyhandler",
     "keymap",
     "Keypresses",
     "KPENTER",

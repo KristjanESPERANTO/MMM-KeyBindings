@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.0.0](https://github.com/shbatm/MMM-KeyBindings/compare/v2.0.4...v3.0.0) (2026-09-17)
+
+### ⚠ BREAKING CHANGES
+
+* **keyhandler:** remove default hook methods
+* **config:** remove legacy evdev aliases
+* **keyhandler:** remove legacy registrations
+* **config:** use arrays for evdev paths
+
+### Fixed
+
+* **keyhandler:** match takeFocus key names ([00eab05](https://github.com/shbatm/MMM-KeyBindings/commit/00eab059ff2ce914f2154518c2e9dc2a30c99b95))
+
+### Documentation
+
+* review README ([645395a](https://github.com/shbatm/MMM-KeyBindings/commit/645395a0c5655df6632f674e931a6e52c0ca1552))
+
+### Chores
+
+* remove redundant evdev comment ([0e2e988](https://github.com/shbatm/MMM-KeyBindings/commit/0e2e9889b562f80eb94cd823df80db3b7a1cc24b))
+* update devDependencies ([55235e2](https://github.com/shbatm/MMM-KeyBindings/commit/55235e2e578fe73ad9ecbd29862f9014fb806a3f))
+* update Node.js setup action ([02646fc](https://github.com/shbatm/MMM-KeyBindings/commit/02646fca9034628d8d38ca7b9f9557dfb35e8f87))
+
+### Code Refactoring
+
+* **config:** remove legacy evdev aliases ([1774933](https://github.com/shbatm/MMM-KeyBindings/commit/17749336f2534fddca7e25234b45760f5740d3ab))
+* **config:** use arrays for evdev paths ([6293e6e](https://github.com/shbatm/MMM-KeyBindings/commit/6293e6ecffc421bbb814c7250ef56e30eb819c12))
+* **keyhandler:** remove default hook methods ([21b1cf8](https://github.com/shbatm/MMM-KeyBindings/commit/21b1cf87e183c17f35a94b3162d5d5b108a0e77e))
+* **keyhandler:** remove legacy registrations ([8610964](https://github.com/shbatm/MMM-KeyBindings/commit/8610964d6ceb33d0bb1961fd90eca946bde1ff58))
+* **native:** remove unused addKeys API ([517ca8b](https://github.com/shbatm/MMM-KeyBindings/commit/517ca8b03714b2ba53c4f84cc6752d0e6fe28106))
+* **native:** remove unused removeKeys API ([6fb7272](https://github.com/shbatm/MMM-KeyBindings/commit/6fb7272452513024fa8d10066ccb6a434d76af7f))
+
+### Tests
+
+* **node:** cover evdev path configuration ([7eff89d](https://github.com/shbatm/MMM-KeyBindings/commit/7eff89d35cde661605ae5d501344ef2aeebc1cbf))
+
 ## [2.0.4](https://github.com/shbatm/MMM-KeyBindings/compare/v2.0.3...v2.0.4) (2026-07-02)
 
 

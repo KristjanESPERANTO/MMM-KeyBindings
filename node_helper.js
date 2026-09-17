@@ -224,13 +224,20 @@ module.exports = NodeHelper.create({
   socketNotificationReceived (notification, payload) {
     if (notification === "ENABLE_EVDEV") {
       if (!this.evdevMonitorCreated) {
-        if (!payload.eventPath) {
+        if (!Array.isArray(payload.eventPath) || payload.eventPath.length === 0) {
           Log.error("evdev is enabled but 'eventPath' is not configured!");
-          Log.error("Please add eventPath to your config, e.g.: evdev: { enabled: true, eventPath: '/dev/input/btremote' }");
+          Log.error("Please add eventPath to your config, e.g.: evdev: { enabled: true, eventPath: ['/dev/input/btremote'] }");
           return;
         }
 
-        const paths = payload.eventPath.split(",").map((p) => p.trim());
+        const paths = payload.eventPath
+          .filter((path) => typeof path === "string")
+          .map((path) => path.trim())
+          .filter(Boolean);
+        if (paths.length === 0) {
+          Log.error("evdev 'eventPath' must contain at least one path.");
+          return;
+        }
 
         this.readers = paths.map((devicePath) => {
           const reader = new InputEventReader(devicePath, (keyName, keyState) => {

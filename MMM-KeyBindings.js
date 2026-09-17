@@ -16,7 +16,7 @@ Module.register("MMM-KeyBindings", {
     enableKeyboard: false,
     evdev: {
       enabled: true,
-      eventPath: "/dev/input/btremote"
+      eventPath: ["/dev/input/btremote"]
     },
     keyMap: {
       Home: "KEY_HOMEPAGE",

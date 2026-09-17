@@ -13,11 +13,11 @@
 #
 # OPTION 1: Single interface remote (default)
 # Use the default eventPath setting:
-#   eventPath: "/dev/input/btremote"
+#   eventPath: ["/dev/input/btremote"]
 #
 # OPTION 2: Multi-interface remote (recommended for full functionality)
 # Use all three interfaces:
-#   eventPath: "/dev/input/btremote-keyboard,/dev/input/btremote-media,/dev/input/btremote-mouse"
+#   eventPath: ["/dev/input/btremote-keyboard", "/dev/input/btremote-media", "/dev/input/btremote-mouse"]
 #
 #==============================================================================
 

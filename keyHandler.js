@@ -223,37 +223,18 @@ KeyHandler.prototype.defaults = {
 };
 
 KeyHandler.definitions = {};
-KeyHandler.legacyRegistrationWarned = false;
 
 /**
  * Register a key handler definition.
- * Accepts either a KeyHandler subclass (modern) or a plain-object mixin
- * (legacy). Mixins are normalized into a subclass so their methods live on
- * the prototype and every created handler is an isolated instance.
  * @param {string} name - Handler name
- * @param {Function|object} definition - KeyHandler subclass or mixin object
+ * @param {Function} definition - KeyHandler subclass
  */
 KeyHandler.register = function register (name, definition) {
-  if (typeof definition === "function") {
-    // Modern: a KeyHandler subclass / constructor.
-    KeyHandler.definitions[name] = definition;
-    return;
+  if (typeof definition !== "function") {
+    throw new TypeError("KeyHandler definitions must be KeyHandler subclasses.");
   }
 
-  if (!KeyHandler.legacyRegistrationWarned && typeof Log !== "undefined" && typeof Log.warn === "function") {
-    Log.warn("MMM-KeyBindings: registering KeyHandler definitions as plain objects is deprecated. Please migrate to a KeyHandler subclass.");
-    KeyHandler.legacyRegistrationWarned = true;
-  }
-
-  /*
-   * Legacy: a plain-object mixin. Build a prototype (once) that inherits from
-   * KeyHandler and carries the definition's methods, so every created handler
-   * is a fresh, isolated instance without cloning.
-   */
-  KeyHandler.definitions[name] = Object.assign(
-    Object.create(KeyHandler.prototype),
-    definition
-  );
+  KeyHandler.definitions[name] = definition;
 };
 
 /**
@@ -263,18 +244,12 @@ KeyHandler.register = function register (name, definition) {
  * @returns {KeyHandler|undefined} New instance, or undefined if unregistered
  */
 KeyHandler.create = function create (name, config) {
-  const definition = KeyHandler.definitions[name];
-  if (!definition) {
+  const Handler = KeyHandler.definitions[name];
+  if (!Handler) {
     return undefined;
   }
 
-  let handler;
-  if (typeof definition === "function") {
-    const Handler = definition;
-    handler = new Handler();
-  } else {
-    handler = Object.create(definition);
-  }
+  const handler = new Handler();
   handler.init(name, config);
   return handler;
 };

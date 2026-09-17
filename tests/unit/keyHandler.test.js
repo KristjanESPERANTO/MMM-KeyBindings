@@ -18,12 +18,11 @@ function loadKeyHandlerModule () {
   );
 
   return {
-    ...sandbox.testExports,
-    sandbox
+    ...sandbox.testExports
   };
 }
 
-const {KeyHandler, invertMap, sandbox} = loadKeyHandlerModule();
+const {KeyHandler, invertMap} = loadKeyHandlerModule();
 
 function plainObject (value) {
   return JSON.parse(JSON.stringify(value));
@@ -115,55 +114,11 @@ describe("KeyHandler class", () => {
     });
   });
 
-  test("normalizes legacy object registrations into KeyHandler instances", () => {
-    const warnings = [];
-    sandbox.Log = {
-      warn (message) {
-        warnings.push(message);
-      }
-    };
-
-    KeyHandler.register("LegacyHandler", {
-      defaults: {
-        mode: "LEGACY",
-        map: {
-          Left: "ArrowLeft"
-        },
-        multiInstance: false,
-        takeFocus: "Enter",
-        debug: false
-      },
-      validKeyPress () {
-        return this.name;
-      }
-    });
-
-    const firstHandler = KeyHandler.create("LegacyHandler", {
-      map: {
-        Left: "ArrowLeft"
-      }
-    });
-    const secondHandler = KeyHandler.create("LegacyHandler", {
-      map: {
-        Right: "ArrowRight"
-      }
-    });
-
-    assert.ok(firstHandler instanceof KeyHandler);
-    assert.equal(firstHandler.name, "LegacyHandler");
-    assert.equal(typeof firstHandler.validKeyPress, "function");
-    assert.equal(firstHandler.config.mode, "LEGACY");
-    assert.deepEqual(plainObject(firstHandler.config.map), {
-      Left: "ArrowLeft"
-    });
-    assert.equal(warnings.length, 1);
-    assert.match(warnings[0], /deprecated/iu);
-
-    firstHandler.config.map.Left = "ArrowRight";
-
-    assert.deepEqual(plainObject(secondHandler.config.map), {
-      Right: "ArrowRight"
-    });
+  test("rejects plain-object handler registrations", () => {
+    assert.throws(
+      () => KeyHandler.register("LegacyHandler", {}),
+      /KeyHandler definitions must be KeyHandler subclasses/u
+    );
   });
 
   test("returns undefined for unknown handlers", () => {

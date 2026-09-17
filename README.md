@@ -215,8 +215,6 @@ class CarouselKeyHandler extends KeyHandler {
 KeyHandler.register("MMM-Carousel", CarouselKeyHandler);
 ```
 
-Legacy plain-object registrations are still supported, but the subclass form above is the modern and preferred style for new code.
-
 ## Development Path
 
 This module was created as a stepping stone to allow other modules to be tweaked to respond to keyboard presses--mainly for navigation purposes. Please add any requests via the Issues for this repo.

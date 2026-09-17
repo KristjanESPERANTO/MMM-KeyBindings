@@ -50,15 +50,8 @@ const NativeKeyHandler = {
       return false;
     }
     return this.activeKeys.some((k) => k.toLowerCase() === keyName.toLowerCase());
-  },
-
-  addKeys (keys) {
-    for (const key of keys) {
-      if (!this.activeKeys.includes(key)) {
-        this.activeKeys.push(key);
-      }
-    }
   }
+
 };
 
 describe("NativeKeyHandler", () => {
@@ -125,26 +118,6 @@ describe("NativeKeyHandler", () => {
     test("returns false when key is not in activeKeys", () => {
       NativeKeyHandler.activeKeys = ["ArrowLeft"];
       assert.equal(NativeKeyHandler.shouldHandle("ArrowRight"), false);
-    });
-  });
-
-  describe("addKeys", () => {
-    test("adds new keys to activeKeys", () => {
-      NativeKeyHandler.activeKeys = [];
-      NativeKeyHandler.addKeys(["ArrowLeft", "ArrowRight"]);
-      assert.deepEqual(NativeKeyHandler.activeKeys, ["ArrowLeft", "ArrowRight"]);
-    });
-
-    test("does not add duplicate keys", () => {
-      NativeKeyHandler.activeKeys = ["ArrowLeft"];
-      NativeKeyHandler.addKeys(["ArrowLeft", "ArrowRight"]);
-      assert.deepEqual(NativeKeyHandler.activeKeys, ["ArrowLeft", "ArrowRight"]);
-    });
-
-    test("preserves existing keys when adding new ones", () => {
-      NativeKeyHandler.activeKeys = ["Home"];
-      NativeKeyHandler.addKeys(["ArrowLeft"]);
-      assert.deepEqual(NativeKeyHandler.activeKeys, ["Home", "ArrowLeft"]);
     });
   });
 

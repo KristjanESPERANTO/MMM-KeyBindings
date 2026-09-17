@@ -133,17 +133,5 @@ const NativeKeyHandler = {
       e.preventDefault();
       e.stopPropagation();
     }
-  },
-
-  /**
-   * Add additional keys to handle
-   * @param {Array} keys - Array of key names to add
-   */
-  addKeys (keys) {
-    for (const key of keys) {
-      if (!this.activeKeys.includes(key)) {
-        this.activeKeys.push(key);
-      }
-    }
   }
 };

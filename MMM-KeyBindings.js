@@ -58,11 +58,6 @@ Module.register("MMM-KeyBindings", {
   start () {
     Log.info(`${this.name} has started…`);
 
-    // Allow Legacy Config Settings:
-    if (this.config.evdevKeyMap) {
-      this.config.keyMap = this.config.evdevKeyMap;
-    }
-
     if (this.config.evdev.enabled) {
       this.sendSocketNotification("ENABLE_EVDEV", this.config.evdev);
     }

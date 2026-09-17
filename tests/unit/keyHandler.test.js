@@ -114,6 +114,36 @@ describe("KeyHandler class", () => {
     });
   });
 
+  test("matches takeFocus object configurations by key name and state", () => {
+    const handler = new KeyHandler();
+    handler.focusReceived = function focusReceived () {
+      this.focused = true;
+    };
+    handler.init("FocusHandler", {
+      mode: "FOCUS",
+      takeFocus: {
+        keyName: "Enter",
+        keyState: "KEY_LONGPRESSED"
+      }
+    });
+
+    assert.equal(handler.validate("KEYPRESS", {
+      keyName: "ArrowRight",
+      keyState: "KEY_LONGPRESSED",
+      sender: "SERVER",
+      instance: "SERVER"
+    }), false);
+    assert.equal(handler.focused, undefined);
+
+    assert.equal(handler.validate("KEYPRESS", {
+      keyName: "Enter",
+      keyState: "KEY_LONGPRESSED",
+      sender: "SERVER",
+      instance: "SERVER"
+    }), true);
+    assert.equal(handler.focused, true);
+  });
+
   test("rejects plain-object handler registrations", () => {
     assert.throws(
       () => KeyHandler.register("LegacyHandler", {}),

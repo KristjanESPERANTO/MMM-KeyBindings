@@ -88,7 +88,7 @@ class KeyHandler {
       }
       if (typeof this.config.takeFocus === "object") {
         if (
-          this.config.takeFocus.keyPress !== payload.keyPress ||
+          this.config.takeFocus.keyName !== payload.keyName ||
           this.config.takeFocus.keyState !== payload.keyState
         ) {
           return false; // Wrong keyName/KeyPress Combo

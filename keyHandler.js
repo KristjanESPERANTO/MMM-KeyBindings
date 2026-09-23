@@ -152,6 +152,11 @@ class KeyHandler {
    * @param {object} kp - Key press payload
    */
   validKeyPress (kp) {
+    if (typeof this.callbacks?.onKeyPress === "function") {
+      this.callbacks.onKeyPress(kp);
+      return;
+    }
+
     Log.debug("[KeyHandler] Key pressed:", kp.keyName);
 
     // Example for responding to "Left" and "Right" arrow
@@ -208,9 +213,11 @@ KeyHandler.register = function register (name, definition) {
  * Create a new key handler instance.
  * @param {string} name - Handler name
  * @param {object} config - Handler configuration
+ * @param {object} [callbacks] - Optional handler callbacks
+ * @param {Function} [callbacks.onKeyPress] - Callback for valid key presses
  * @returns {KeyHandler|undefined} New instance, or undefined if unregistered
  */
-KeyHandler.create = function create (name, config) {
+KeyHandler.create = function create (name, config, callbacks = {}) {
   const Handler = KeyHandler.definitions[name];
   if (!Handler) {
     return undefined;
@@ -218,5 +225,6 @@ KeyHandler.create = function create (name, config) {
 
   const handler = new Handler();
   handler.init(name, config);
+  handler.callbacks = callbacks;
   return handler;
 };

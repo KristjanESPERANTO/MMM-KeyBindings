@@ -114,6 +114,22 @@ describe("KeyHandler class", () => {
     });
   });
 
+  test("invokes an optional key press callback", () => {
+    const keyPresses = [];
+
+    KeyHandler.register("CallbackHandler", KeyHandler);
+    const handler = KeyHandler.create("CallbackHandler", {}, {
+      onKeyPress: (kp) => keyPresses.push(kp.keyName)
+    });
+
+    handler.validate("KEYPRESS", {
+      keyName: "ArrowRight",
+      keyState: "KEY_PRESSED"
+    });
+
+    assert.deepEqual(keyPresses, ["ArrowRight"]);
+  });
+
   test("matches takeFocus object configurations by key name and state", () => {
     const handler = new KeyHandler();
     handler.focusReceived = function focusReceived () {

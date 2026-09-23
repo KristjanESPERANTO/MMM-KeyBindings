@@ -193,26 +193,24 @@ To handle key press events in your module, see this [wiki page](https://github.c
 
 ### Modern KeyHandler Registration
 
-The recommended way to define a handler is to extend `KeyHandler` and register the class directly. This keeps the handler methods on the prototype and gives each instance its own runtime state.
+The recommended way to define a handler is to register `KeyHandler` with an optional callback. This keeps module behavior in the module and gives each handler instance its own runtime state.
 
 ```js
-class CarouselKeyHandler extends KeyHandler {
-  validKeyPress(kp) {
-    if (kp.keyName === this.config.map.Left) {
-      this.sendNotification("CAROUSEL_PREVIOUS");
+KeyHandler.register("MMM-Carousel", KeyHandler);
+
+this.keyHandler = KeyHandler.create(
+  this.name,
+  {
+    mode: "DEFAULT",
+    map: {
+      NextSlide: "ArrowRight",
+      PrevSlide: "ArrowLeft"
     }
-
-    if (kp.keyName === this.config.map.Right) {
-      this.sendNotification("CAROUSEL_NEXT");
-    }
+  },
+  {
+    onKeyPress: this.validKeyPress.bind(this)
   }
-
-  onFocus() {
-    Log.info(`${this.name} is ready for key navigation.`);
-  }
-}
-
-KeyHandler.register("MMM-Carousel", CarouselKeyHandler);
+);
 ```
 
 ## Development Path

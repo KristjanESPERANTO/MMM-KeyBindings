@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [3.1.0](https://github.com/shbatm/MMM-KeyBindings/compare/v3.0.0...v3.1.0) (2026-09-23)
+
+### Added
+
+* **keyhandler:** add keypress callback ([2dab063](https://github.com/shbatm/MMM-KeyBindings/commit/2dab0639cdba8f40190853a7f4c3fc9f7fb52048))
+
+### Chores
+
+* update devDependencies ([eb8751e](https://github.com/shbatm/MMM-KeyBindings/commit/eb8751eca5a2c0276b48861eaf5624c17e3b84a2))
+
 ## [3.0.0](https://github.com/shbatm/MMM-KeyBindings/compare/v2.0.4...v3.0.0) (2026-09-17)
 
 ### ⚠ BREAKING CHANGES
